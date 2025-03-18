@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Sorry, Sweetie!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffebf1;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            transition: background-color 0.5s ease;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #ff70a6;
+        }
+        h2 {
+            font-size: 1.3em;
+            color: #ff70a6;
+            padding: 10px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 90%;
+            width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease;
+        }
+        img.kitten {
+            width: 80%;
+            max-width: 300px;
+            height: auto;
+            margin: 10px auto;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            object-fit: cover;
+        }
+        img.kitten:hover {
+            transform: scale(1.05);
+        }
+        button {
+            background-color: #ff70a6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 25px;
+            margin: 10px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(255, 112, 166, 0.3);
+        }
+        button:hover {
+            background-color: #ff4785;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 112, 166, 0.4);
+        }
+        .yes-button {
+            background-color: #f8d0e4;
+        }
+        .no-button {
+            background-color: #f8a1c6;
+        }
+        .final-message {
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #ff70a6, #ff4785, #ff70a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glowingText 1.5s ease-in-out infinite, heartbeat 1.5s ease-in-out infinite;
+            display: none;
+            padding: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 112, 166, 0.3);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        @keyframes glowingText {
+            0% { text-shadow: 0 0 10px #ff4785, 0 0 20px #ff4785, 0 0 30px #ff70a6; }
+            50% { text-shadow: 0 0 15px #ff4785, 0 0 25px #ff4785, 0 0 35px #ff70a6; }
+            100% { text-shadow: 0 0 10px #ff4785, 0 0 20px #ff4785, 0 0 30px #ff70a6; }
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .question-container {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.2em; }
+            .final-message { font-size: 2em; }
+            button {
+                padding: 12px 24px;
+                font-size: 1.1em;
+                margin: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="initial-container">
+        <h1>I'm Sorry, Sweetie!</h1>
+        <img src="initial-kitten.jpg" alt="Kitten" class="kitten">
+        <h2>What I said about Saber was a joke, but I understand it hurt you. Please forgive me! ☹️</h2>
+        <button class="yes-button" onclick="nextQuestion(1)">Yes</button>
+        <button class="no-button" onclick="showApology()">No</button>
+    </div>
+
+    <div class="container question-container" id="question1">
+        <h2>Baby, you know how much I love you... Please don't be mad at me! 🥺💕</h2>
+        <img src="pleading-kitten.jpg" alt="Adorable Pleading Kitten" class="kitten">
+        <button class="yes-button" id="yes1" onclick="nextQuestion(2)">Yes</button>
+        <button class="no-button" id="no1" onclick="handleNo(1)">No</button>
+    </div>
+
+    <div class="container question-container" id="question2">
+        <h2>Sweetie, my heart beats only for you... You know that, right? 😘💝</h2>
+        <img src="loving-kitten.jpg" alt="Loving Kitten" class="kitten">
+        <button class="yes-button" id="yes2" onclick="nextQuestion(3)">Yes</button>
+        <button class="no-button" id="no2" onclick="handleNo(2)">No</button>
+    </div>
+
+    <div class="container question-container" id="question3">
+        <h2>My love, I can't help but love you more with each passing moment... Please forgive me! 🌹💖</h2>
+        <img src="heart-eyes-kitten.jpg" alt="Heart Eyes Kitten" class="kitten">
+        <button class="yes-button" id="yes3" onclick="showFinal()">Yes</button>
+        <button class="no-button" id="no3" onclick="handleNo(3)">No</button>
+    </div>
+
+    <div class="container" id="final-container" style="display: none;">
+        <img src="happy-kitten.jpg" alt="Happy Celebration Kitten" class="kitten">
+        <div class="final-message">I love you so much arsu 💖</div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        const apologyMessages = [
+            "Please baby, I love you so much! 🥺",
+            "Sweetie, my heart aches without your forgiveness! 💔",
+            "My love, I promise to make it up to you! 🌹",
+            "I can't bear to see you upset, please forgive me! 💝"
+        ];
+
+        function showApology() {
+            const h2 = document.querySelector('#initial-container h2');
+            if (noClickCount < apologyMessages.length) {
+                h2.textContent = apologyMessages[noClickCount];
+                noClickCount++;
+            }
+        }
+
+        function nextQuestion(questionNumber) {
+            const currentContainer = document.querySelector(questionNumber === 1 ? '#initial-container' : `#question${questionNumber-1}`);
+            const nextContainer = document.querySelector(`#question${questionNumber}`);
+
+            currentContainer.style.display = 'none';
+            if (nextContainer) {
+                nextContainer.style.display = 'block';
+            }
+            noClickCount = 0;
+        }
+
+        function handleNo(questionNumber) {
+            noClickCount++;
+            const yesButton = document.querySelector(`#yes${questionNumber}`);
+
+            yesButton.style.transform = `scale(${1 + (noClickCount * 0.1)})`;
+
+            if (noClickCount >= 3) {
+                const noButton = document.querySelector(`#no${questionNumber}`);
+                noButton.style.display = 'none';
+            }
+        }
+
+        function showFinal() {
+            document.querySelectorAll('.container').forEach(container => {
+                container.style.display = 'none';
+            });
+
+            const finalContainer = document.getElementById('final-container');
+            const finalMessage = document.querySelector('.final-message');
+
+            finalContainer.style.display = 'block';
+            finalMessage.style.display = 'block';
+
+            setInterval(() => {
+                finalMessage.innerHTML = finalMessage.innerHTML.includes('💝') 
+                    ? 'I love you so much arsu 💖' 
+                    : 'I love you so much arsu 💝';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
