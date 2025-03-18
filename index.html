@@ -63,7 +63,7 @@
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(255, 112, 166, 0.4);
         }
-        .yes-button {
+        .ok-button {
             background-color: #f8d0e4;
         }
         .no-button {
@@ -112,41 +112,41 @@
         <h1>I'm Sorry, Sweetie!</h1>
         <img src="initial-kitten.jpg" alt="Kitten" class="kitten">
         <h2>What I said about Saber was a joke, but I understand it hurt you. Please forgive me! ☹️</h2>
-        <button class="yes-button" onclick="nextQuestion(1)">Yes</button>
-        <button class="no-button" onclick="showApology()">No</button>
+        <button class="oki-button" onclick="nextQuestion(1)">OKi</button>
+        <button class="noo-button" onclick="showApology()">Noo</button>
     </div>
 
     <div class="container question-container" id="question1">
-        <h2>Baby, you know how much I love you... Please don't be mad at me! 🥺💕</h2>
+        <h2>Yeyeyeyeyey thank you sweetie and, you know how much I love you right... Please don't be mad at me! 🥺💕</h2>
         <img src="pleading-kitten.jpg" alt="Adorable Pleading Kitten" class="kitten">
-        <button class="yes-button" id="yes1" onclick="nextQuestion(2)">Yes</button>
+        <button class="okii-button" id="ok1" onclick="nextQuestion(2)">Okii, But i hate you dummy</button>
         <button class="no-button" id="no1" onclick="handleNo(1)">No</button>
     </div>
 
     <div class="container question-container" id="question2">
         <h2>Sweetie, my heart beats only for you... You know that, right? 😘💝</h2>
         <img src="loving-kitten.jpg" alt="Loving Kitten" class="kitten">
-        <button class="yes-button" id="yes2" onclick="nextQuestion(3)">Yes</button>
-        <button class="no-button" id="no2" onclick="handleNo(2)">No</button>
+        <button class="yeshi-button" id="yeshi2" onclick="nextQuestion(3)">yeshiii i'm aware</button>
+        <button class="no-button" id="no2" onclick="handleNo(2)">Yes, but you are dickhead</button>
     </div>
 
     <div class="container question-container" id="question3">
         <h2>My love, I can't help but love you more with each passing moment... Please forgive me! 🌹💖</h2>
         <img src="heart-eyes-kitten.jpg" alt="Heart Eyes Kitten" class="kitten">
-        <button class="yes-button" id="yes3" onclick="showFinal()">Yes</button>
+        <button class="already-button" id="i already did3" onclick="showFinal()">Baka! i already did</button>
         <button class="no-button" id="no3" onclick="handleNo(3)">No</button>
     </div>
 
     <div class="container" id="final-container" style="display: none;">
         <img src="happy-kitten.jpg" alt="Happy Celebration Kitten" class="kitten">
-        <div class="final-message">I love you so much arsu 💖</div>
+        <div class="final-message">Awwww, thank you I love you so much Arsu 💖</div>
     </div>
 
     <script>
         let noClickCount = 0;
         const apologyMessages = [
             "Please baby, I love you so much! 🥺",
-            "Sweetie, my heart aches without your forgiveness! 💔",
+            "Sweetie, my heart feels so heavy without your forgiveness! 💔",
             "My love, I promise to make it up to you! 🌹",
             "I can't bear to see you upset, please forgive me! 💝"
         ];
@@ -172,9 +172,9 @@
 
         function handleNo(questionNumber) {
             noClickCount++;
-            const yesButton = document.querySelector(`#yes${questionNumber}`);
+            const okButton = document.querySelector(`#ok${questionNumber}`);
 
-            yesButton.style.transform = `scale(${1 + (noClickCount * 0.1)})`;
+            okButton.style.transform = `scale(${1 + (noClickCount * 0.1)})`;
 
             if (noClickCount >= 3) {
                 const noButton = document.querySelector(`#no${questionNumber}`);
@@ -187,17 +187,8 @@
                 container.style.display = 'none';
             });
 
-            const finalContainer = document.getElementById('final-container');
-            const finalMessage = document.querySelector('.final-message');
-
-            finalContainer.style.display = 'block';
-            finalMessage.style.display = 'block';
-
-            setInterval(() => {
-                finalMessage.innerHTML = finalMessage.innerHTML.includes('💝') 
-                    ? 'I love you so much arsu 💖' 
-                    : 'I love you so much arsu 💝';
-            }, 1000);
+            document.getElementById('final-container').style.display = 'block';
+            document.querySelector('.final-message').style.display = 'block';
         }
     </script>
 </body>
